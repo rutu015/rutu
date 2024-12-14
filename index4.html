@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linked List Demo, Explanation, and Usage</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #F2F2F2; /* Light Grey Background */
+            color: #4F4F4F; /* Darker Grey for text */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        header {
+            background-color: #D1D1D1; /* Light Grey Header */
+            color: #333333;
+            width: 100%;
+            text-align: center;
+            padding: 20px;
+            border-radius: 0 0 15px 15px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        nav {
+            margin-top: 10px;
+        }
+
+        nav a {
+            color: #333333;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        nav a:hover {
+            color: #B0B0B0;
+        }
+
+        main {
+            padding: 30px;
+            max-width: 1200px;
+            width: 100%;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .content-container {
+            background-color: #FFFFFF; /* White for content */
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 1000px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .graph {
+            margin-bottom: 20px;
+        }
+
+        h2, h3 {
+            color: #4F4F4F; /* Darker Grey */
+            font-size: 1.8rem;
+        }
+
+        button, input {
+            padding: 10px;
+            font-size: 1.2rem;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #B0B0B0;
+            background-color: #D1D1D1;
+            color: #333333;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover, input:focus {
+            background-color: #A0A0A0;
+            border-color: #A0A0A0;
+        }
+
+        canvas {
+            border: 2px solid #B0B0B0;
+            background-color: #F9F9F9; /* Slightly lighter grey */
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        footer {
+            background-color: #D1D1D1;
+            color: #333333;
+            text-align: center;
+            padding: 15px;
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+            border-radius: 15px 15px 0 0;
+        }
+
+        footer p {
+            font-size: 1rem;
+        }
+
+        #traversalResult {
+            margin-top: 10px;
+            font-size: 1.2rem;
+            color: #4F4F4F;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Linked List Demo, Explanation, and Usage</h1>
+        <nav>
+            <a href="#explanation">Linked List Explanation</a> |
+            <a href="#usage">Where and Why Linked List is Used</a> |
+            <a href="#demo">Linked List Demo</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Linked List Explanation Section -->
+        <div id="explanation" class="content-container">
+            <section class="intro">
+                <h2>What is a Linked List?</h2>
+                <p>A linked list is a linear data structure where each element (called a node) contains data and a reference (link) to the next node in the sequence.</p>
+            </section>
+
+            <section class="structure">
+                <h3>Structure of a Linked List:</h3>
+                <ul>
+                    <li><strong>Node:</strong> Contains the data and a reference to the next node.</li>
+                    <li><strong>Head:</strong> The first node in the list.</li>
+                    <li><strong>Tail:</strong> The last node in the list, which points to <strong>Null</strong>.</li>
+                </ul>
+
+                <h3>Example of a Simple Linked List:</h3>
+                <pre>
+                    Head -> [1] -> [2] -> [3] -> [4] -> Null
+                </pre>
+            </section>
+        </div>
+
+        <!-- Linked List Usage Section -->
+        <div id="usage" class="content-container">
+            <section class="use-cases">
+                <h2>Where Linked Lists are Used</h2>
+                <ul>
+                    <li><strong>Dynamic Memory Allocation:</strong> Linked lists allow dynamic memory allocation, which makes them ideal for situations where the number of elements is not fixed.</li>
+                    <li><strong>Efficient Insertions and Deletions:</strong> Linked lists excel in situations where frequent insertions and deletions are required, as these operations do not require shifting elements.</li>
+                    <li><strong>Implementing Other Data Structures:</strong> Linked lists form the foundation for other data structures like stacks, queues, and graphs.</li>
+                </ul>
+
+                <h2>Why Use Linked Lists?</h2>
+                <p>Linked lists are most useful when memory usage is unpredictable, and the need for frequent insertions and deletions arises.</p>
+            </section>
+        </div>
+
+        <!-- Linked List Demo Section -->
+        <div id="demo" class="content-container">
+            <section class="graph">
+                <h2>Graphical Representation of a Linked List</h2>
+                <canvas id="linkedListCanvas" width="1000" height="300"></canvas>
+            </section>
+
+            <section class="controls">
+                <h3>Linked List Operations</h3>
+                <input type="number" id="nodeValue" placeholder="Enter node value" />
+                <button onclick="addNode()">Add Node</button>
+                <button onclick="removeNode()">Remove Node</button>
+                <button onclick="traverseList()">Traverse Linked List</button>
+                <p id="traversalResult"></p>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2024 Linked List Tutorial</p>
+    </footer>
+
+    <script>
+        let linkedList = [];
+        let addressCounter = 1;
+
+        const canvas = document.getElementById('linkedListCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function drawLinkedList() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            let x = 50;
+            const nodeHeight = 100;
+            const nodeWidth = 200;
+
+            for (let i = 0; i < linkedList.length; i++) {
+                ctx.fillStyle = '#E0E0E0';
+                ctx.fillRect(x, canvas.height / 2 - nodeHeight / 2, nodeWidth, nodeHeight);
+
+                ctx.fillStyle = '#6D6D6D';
+                ctx.font = '16px Arial';
+                ctx.fillText('Value', x + 10, canvas.height / 2 - nodeHeight / 4);
+                ctx.fillText('Address', x + 110, canvas.height / 2 - nodeHeight / 4);
+
+                ctx.fillStyle = '#4F4F4F';
+                ctx.font = '18px Arial';
+                ctx.fillText(linkedList[i].value, x + 10, canvas.height / 2);
+                const nextAddress = i < linkedList.length - 1 ? linkedList[i + 1].address : 'Null';
+                ctx.fillText(nextAddress, x + 110, canvas.height / 2);
+
+                if (i < linkedList.length - 1) {
+                    const arrowX = x + nodeWidth;
+                    const arrowY = canvas.height / 2;
+                    const arrowSize = 10;
+                    ctx.beginPath();
+                    ctx.moveTo(arrowX, arrowY);
+                    ctx.lineTo(arrowX + 20, arrowY);
+                    ctx.stroke();
+                    ctx.beginPath();
+                    ctx.moveTo(arrowX + 20, arrowY - arrowSize);
+                    ctx.lineTo(arrowX + 20, arrowY + arrowSize);
+                    ctx.lineTo(arrowX + 30, arrowY);
+                    ctx.closePath();
+                    ctx.fillStyle = '#4F4F4F';
+                    ctx.fill();
+                }
+
+                x += nodeWidth + 40;
+            }
+        }
+
+        function addNode() {
+            const newNodeValue = document.getElementById('nodeValue').value;
+            if (newNodeValue) {
+                const newNode = {
+                    value: newNodeValue,
+                    address: '0x' + addressCounter.toString(16).toUpperCase()
+                };
+                linkedList.push(newNode);
+                addressCounter++;
+                document.getElementById('nodeValue').value = '';
+                drawLinkedList();
+            } else {
+                alert('Please enter a valid value for the node.');
+            }
+        }
+
+        function removeNode() {
+            if (linkedList.length > 0) {
+                linkedList.pop();
+                drawLinkedList();
+            }
+        }
+
+        function traverseList() {
+            const traversalResult = linkedList.map(node => node.value).join(' -> ');
+            document.getElementById('traversalResult').textContent = 'Linked List: ' + traversalResult;
+        }
+
+        drawLinkedList();
+    </script>
+</body>
+</html>
