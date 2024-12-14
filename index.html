@@ -3,258 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Linked List with Arrows</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #F2F2F2; /* Light Grey Background */
-            color: #4F4F4F; /* Darker Grey for text */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            flex-direction: column;
-        }
-
-        header {
-            background-color: #D1D1D1; /* Light Grey Header */
-            color: #333333;
-            width: 100%;
-            text-align: center;
-            padding: 20px;
-            border-radius: 0 0 15px 15px;
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 2.5rem;
-        }
-
-        nav {
-            margin-top: 10px;
-        }
-
-        nav a {
-            color: #333333;
-            margin: 0 15px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1.1rem;
-        }
-
-        nav a:hover {
-            color: #B0B0B0;
-        }
-
-        main {
-            padding: 30px;
-            max-width: 1200px;
-            width: 100%;
-            text-align: center;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
-
-        .content-container {
-            background-color: #FFFFFF; /* White for content */
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 90%;
-            max-width: 1000px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
-
-        .graph {
-            margin-bottom: 20px;
-        }
-
-        h2, h3 {
-            color: #4F4F4F; /* Darker Grey */
-            font-size: 1.8rem;
-        }
-
-        button, input {
-            padding: 10px;
-            font-size: 1.2rem;
-            margin-right: 10px;
-            margin-bottom: 10px;
-            border-radius: 5px;
-            border: 1px solid #B0B0B0;
-            background-color: #D1D1D1;
-            color: #333333;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        button:hover, input:focus {
-            background-color: #A0A0A0;
-            border-color: #A0A0A0;
-        }
-
-        canvas {
-            border: 2px solid #B0B0B0;
-            background-color: #F9F9F9; /* Slightly lighter grey */
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-
-        footer {
-            background-color: #D1D1D1;
-            color: #333333;
-            text-align: center;
-            padding: 15px;
-            width: 100%;
-            position: fixed;
-            bottom: 0;
-            border-radius: 15px 15px 0 0;
-        }
-
-        footer p {
-            font-size: 1rem;
-        }
-
-        #traversalResult {
-            margin-top: 10px;
-            font-size: 1.2rem;
-            color: #4F4F4F;
-        }
-    </style>
+    <title>Linked List - Explanation</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-        <h1>Linked List</h1>
+        <h1>Linked List - Explanation</h1>
         <nav>
-            <a href="index.html">Linked List Explanation</a> |
-            <a href="usage.html">Where and Why Linked List is Used</a>
+            <a href="usage.html">Where and Why Linked List is Used</a> |
+            <a href="demo.html">Linked List Demo</a>
         </nav>
     </header>
 
     <main>
         <div class="content-container">
-            <section class="graph">
-                <h2>Graphical Representation of a Linked List</h2>
-                <canvas id="linkedListCanvas" width="1000" height="300"></canvas>
+            <section class="intro">
+                <h2>What is a Linked List?</h2>
+                <p>A linked list is a linear data structure where each element (called a node) contains data and a reference (link) to the next node in the sequence.</p>
             </section>
 
-            <section class="controls">
-                <h3>Linked List Operations</h3>
-                <input type="number" id="nodeValue" placeholder="Enter node value" />
-                <button onclick="addNode()">Add Node</button>
-                <button onclick="removeNode()">Remove Node</button>
-                <button onclick="traverseList()">Traverse Linked List</button>
-                <p id="traversalResult"></p>
+            <section class="structure">
+                <h3>Structure of a Linked List:</h3>
+                <ul>
+                    <li><strong>Node:</strong> Contains the data and a reference to the next node.</li>
+                    <li><strong>Head:</strong> The first node in the list.</li>
+                    <li><strong>Tail:</strong> The last node in the list, which points to <strong>Null</strong>.</li>
+                </ul>
+
+                <h3>Example of a Simple Linked List:</h3>
+                <pre>
+                    Head -> [1] -> [2] -> [3] -> [4] -> Null
+                </pre>
             </section>
         </div>
     </main>
 
-    <script>
-        // Initialize an empty linked list (array to simulate it)
-        let linkedList = [];
-        let addressCounter = 1;  // Variable to simulate addresses
-
-        // Get the canvas element to draw on
-        const canvas = document.getElementById('linkedListCanvas');
-        const ctx = canvas.getContext('2d');
-
-        // Draw the linked list visually on the canvas
-        function drawLinkedList() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
-            let x = 50; // Initial position to draw nodes
-            const nodeHeight = 100; // Height of each node (for both value and address)
-            const nodeWidth = 200; // Width of each node (for both value and address)
-
-            // Draw each node in the linked list
-            for (let i = 0; i < linkedList.length; i++) {
-                ctx.fillStyle = '#E0E0E0'; // Lighter grey for nodes
-                ctx.fillRect(x, canvas.height / 2 - nodeHeight / 2, nodeWidth, nodeHeight); // Draw node
-
-                // Draw labels "Value" and "Address"
-                ctx.fillStyle = '#6D6D6D'; // Medium Grey for labels
-                ctx.font = '16px Arial';
-                ctx.fillText('Value', x + 10, canvas.height / 2 - nodeHeight / 4); // Label for value
-                ctx.fillText('Address', x + 110, canvas.height / 2 - nodeHeight / 4); // Label for address
-
-                // Draw value part (left part of the node)
-                ctx.fillStyle = '#4F4F4F'; // Darker Grey for text
-                ctx.font = '18px Arial';
-                ctx.fillText(linkedList[i].value, x + 10, canvas.height / 2); // Write value
-
-                // Draw next address part (right part of the node)
-                const nextAddress = i < linkedList.length - 1 ? linkedList[i + 1].address : 'Null'; // Add "Null" for the last node
-                ctx.fillText(nextAddress, x + 110, canvas.height / 2); // Write next address
-
-                // Draw an arrow pointing to the next node
-                if (i < linkedList.length - 1) {
-                    // Arrow drawing logic
-                    const arrowX = x + nodeWidth;
-                    const arrowY = canvas.height / 2;
-                    const arrowSize = 10; // Size of the arrowhead
-
-                    // Draw the line part of the arrow
-                    ctx.beginPath();
-                    ctx.moveTo(arrowX, arrowY);
-                    ctx.lineTo(arrowX + 20, arrowY);
-                    ctx.stroke();
-
-                    // Draw the arrowhead
-                    ctx.beginPath();
-                    ctx.moveTo(arrowX + 20, arrowY - arrowSize);
-                    ctx.lineTo(arrowX + 20, arrowY + arrowSize);
-                    ctx.lineTo(arrowX + 30, arrowY);
-                    ctx.closePath();
-                    ctx.fillStyle = '#4F4F4F';
-                    ctx.fill();
-                }
-
-                x += nodeWidth + 40; // Move position for the next node, including space between nodes
-            }
-        }
-
-        // Add a new node with the user-inputted value and address
-        function addNode() {
-            const newNodeValue = document.getElementById('nodeValue').value;
-            if (newNodeValue) {
-                const newNode = {
-                    value: newNodeValue,
-                    address: '0x' + addressCounter.toString(16).toUpperCase() // Correct address format
-                };
-                linkedList.push(newNode); // Add to the linked list
-                addressCounter++; // Increment address counter
-                document.getElementById('nodeValue').value = ''; // Clear the input field
-                drawLinkedList(); // Redraw the linked list on the canvas
-            } else {
-                alert('Please enter a valid value for the node.');
-            }
-        }
-
-        // Remove the last node
-        function removeNode() {
-            if (linkedList.length > 0) {
-                linkedList.pop(); // Remove the last node
-                drawLinkedList(); // Redraw the linked list on the canvas
-            }
-        }
-
-        // Traverse the linked list and display only values
-        function traverseList() {
-            const traversalResult = linkedList.map(node => node.value).join(' -> ');
-            document.getElementById('traversalResult').textContent = 'Linked List: ' + traversalResult;
-        }
-
-        // Initial draw of the empty linked list
-        drawLinkedList();
-    </script>
+    
 </body>
 </html>
